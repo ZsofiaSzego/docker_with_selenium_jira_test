@@ -1,21 +1,33 @@
 package util;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
+
 
 public class UtilDriver {
         private WebDriver driver;
         private String baseUrl;
 
         public UtilDriver() {
-            driver = new ChromeDriver();
+            String Node = "https://selenium:validpassword.@seleniumhub.codecool.metastage.net/wd/hub/";
+            DesiredCapabilities cap = new DesiredCapabilities();
+            cap.setBrowserName("firefox");
+            cap.setPlatform(Platform.LINUX);
+            try {
+                driver = new RemoteWebDriver(new URL(Node), cap);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
             this.baseUrl = "https://jira-auto.codecool.metastage.net/secure/Dashboard.jspa";
             driver.get(baseUrl);
             new WebDriverWait(driver, 40).until(
@@ -33,7 +45,7 @@ public class UtilDriver {
         }
 
         public void close(){
-            driver.close();
+            driver.quit();
         }
 
         public void navigationToCertainProject (String name)  {
