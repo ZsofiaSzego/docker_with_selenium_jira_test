@@ -123,3 +123,5 @@ bazel-testlogs
 /.vscode/
 /.scannerwork/
 /.bazelrc.local
+/src/test/resources/.env
+/src/main/resources/.env
