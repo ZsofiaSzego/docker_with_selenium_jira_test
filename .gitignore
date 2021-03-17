@@ -7,6 +7,7 @@ allure-results
 .ijwb
 .idea
 jira/.idea
+*.class
 mockpiframe.log
 mockpiframe.log.lck
 junitvmwatcher*.properties
@@ -125,3 +126,4 @@ bazel-testlogs
 /.bazelrc.local
 /src/test/resources/.env
 /src/main/resources/.env
+/target/
