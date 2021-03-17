@@ -1,4 +1,7 @@
+import io.github.cdimascio.dotenv.Dotenv;
+import io.github.cdimascio.dotenv.DotenvEntry;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.api.BeforeEach;
 import pages.DashboardPage;
@@ -28,10 +31,10 @@ public class LogoutTest {
         driver.close();
     }
 
-    @ParameterizedTest
-    @CsvFileSource(resources = "/login/successful_login.csv", numLinesToSkip = 1)
-    public void logoutTest_successfulLogOut_isWorking (String username, String password) {
-        dashboardPage.login(System.getProperty(username), System.getProperty(password));
+    @Test
+    public void logoutTest_successfulLogOut_isWorking () {
+        Dotenv dotenv = Dotenv.configure().load();
+        dashboardPage.login(dotenv.get("JIRAUSERNAME"), dotenv.get("JIRAPASSWORD"));
         mainPage.clickOnLogout();
 
         assertTrue(logoutPage.verifySuccessLogOut());
