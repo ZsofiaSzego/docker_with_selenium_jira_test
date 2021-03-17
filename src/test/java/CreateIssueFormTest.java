@@ -1,3 +1,4 @@
+import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,12 +14,14 @@ class CreateIssueFormTest {
     DashboardPage dashboardPage;
     MainPage mainPage;
     CreateIssueForm form;
+    Dotenv dotenv;
 
     @BeforeEach
     public void setUp(){
         utilDriver = new UtilDriver();
         dashboardPage = new DashboardPage(utilDriver.getDriver());
-        dashboardPage.login(System.getenv("jirausername"), System.getenv("jirapassword"));
+        dotenv = Dotenv.configure().load();
+        dashboardPage.login(dotenv.get("JIRAUSERNAME"), dotenv.get("JIRAPASSWORD"));
         mainPage = new MainPage(utilDriver.getDriver());
         form = new CreateIssueForm(utilDriver.getDriver());
         mainPage.clickCreateButton();
