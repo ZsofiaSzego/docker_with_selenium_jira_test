@@ -1,8 +1,8 @@
 pipeline{
     agent any
     tools{
-        maven 'Maven 3.3.9'
-        jdk 'jdk11'
+        maven 'Maven 4.0.0'
+        jdk 'jdk15'
     }
     stages {
         stage('git'){
