@@ -1,6 +1,9 @@
 pipeline{
     agent any
-    
+    tools{
+        maven 'Maven 3.3.9'
+        jdk 'jdk11'
+    }
     stages {
         stage('git'){
             steps {
@@ -14,6 +17,10 @@ pipeline{
         }
         stage('compile'){
             steps {
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                    '''
                 sh "mvn clean install"
             }
         }
