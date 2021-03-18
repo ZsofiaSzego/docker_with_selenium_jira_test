@@ -27,6 +27,7 @@ pipeline{
                     }
                     steps{
                         echo JIRAUSERNAME
+                        sh "cd /home/jenkins/agent/workspace/automation1/jiratestnormal/src/main/resources"
                         sh "touch .env"
                         sh "echo 'JIRAUSERNAME=${env.JIRAUSERNAME}\n  JIRAPASSWORD = ${env.JIRAPASSWORD} \n GRIDURL = ${env.GRIDURL} \n BASEURL = ${env.BASEURL} \n TIMEOUT = ${env.TIMEOUT}' > .env"
                         sh "mvn test -Dtest=LogoutTest"
