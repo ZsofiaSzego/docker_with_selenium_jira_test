@@ -13,7 +13,7 @@ pipeline{
         }
         stage('compile'){
             steps {
-                sh "mvn -f workspace/jiraTestWithJenkins/pom.xml"
+                sh "mvn -f jiraTestWithJenkins/pom.xml"
                 sh "mvn clean install"
             }
         }
