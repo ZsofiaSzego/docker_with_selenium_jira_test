@@ -1,14 +1,13 @@
 pipeline{
     agent any
-    tools{
-        maven 'Maven 4.0.0'
-        jdk 'jdk15'
-    }
     stages {
         stage('git'){
             steps {
                 git branch: 'main', credentialsId: 'git-user-pw', url: 'https://github.com/tothbenceimre/jiraTestWithJenkins.git'
             }
+            withMaven {
+                sh "mvn clean verify"
+            } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe reports and FindBugs report
         }
         stage('clean'){
             steps {
