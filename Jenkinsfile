@@ -1,22 +1,15 @@
 pipeline{
     agent any
-    environment{
-        PATH ="/usr/lib/jvm/java-11-openjdk-amd64:$PATH"
-    }
     stages {
         stage('git'){
             steps {
                 git branch: 'main', credentialsId: 'git-user-pw', url: 'https://github.com/tothbenceimre/jiraTestWithJenkins.git'
             }
         }
-        stage('clean'){
-            steps {
-                cleanWs()
-            }
         }
         stage('compile'){
             steps {
-                sh "mvn clean package"
+                sh "mvn compile"
             }
         }
         stage('Second Stage'){
