@@ -13,7 +13,7 @@ pipeline{
         }
         stage('compile'){
             steps {
-                sh "mvn -f pom.xml"
+                sh "ls -la ${pwd()}"
                 sh "mvn clean install"
             }
         }
