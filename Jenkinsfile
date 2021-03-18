@@ -6,7 +6,6 @@ pipeline{
                 git branch: 'main', credentialsId: 'git-user-pw', url: 'https://github.com/tothbenceimre/jiraTestWithJenkins.git'
             }
         }
-        }
         stage('compile'){
             steps {
                 sh "mvn compile"
