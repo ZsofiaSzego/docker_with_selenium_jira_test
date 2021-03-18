@@ -1,5 +1,13 @@
 pipeline{
     agent any
+    environment{
+        JIRAPASSWORD = "${params.JIRAPASSWORD}"
+        JIRAUSERNAME = "${params.JIRAUSERNAME}"
+        GRIDURL = "${params.GRIDURL}"
+        BASEURL = "${params.BASEURL}"
+        TIMEOUT = "${params.TIMEOUT}"
+
+    }
     stages {
         stage('git'){
             steps {
