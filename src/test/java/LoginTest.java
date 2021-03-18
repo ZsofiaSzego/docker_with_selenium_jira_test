@@ -1,3 +1,6 @@
+import io.github.cdimascio.dotenv.Dotenv;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.api.BeforeEach;
 import pages.DashboardPage;
@@ -14,6 +17,7 @@ public class LoginTest {
     MainPage mainPage;
     ProfilePage profilePage;
     LoginPage loginPage;
+    Dotenv dotenv;
 
 
     @BeforeEach
@@ -23,30 +27,29 @@ public class LoginTest {
         mainPage = new MainPage(driver.getDriver());
         profilePage = new ProfilePage(driver.getDriver());
         loginPage = new LoginPage(driver.getDriver());
+        dotenv = Dotenv.configure().load();
     }
 
-    //    @AfterEach
-//    public void teardown() {
-//        driver.close();
-//    }
+        @AfterEach
+    public void teardown() {
+        driver.close();
+    }
 
-    @ParameterizedTest
-    @CsvFileSource(resources = "/login/successful_login.csv", numLinesToSkip = 1)
-    public void loginTest_successfulLogInFromDashBoard_isWorking (String username, String password) {
-        dashboardPage.login(username, password);
+    @Test
+    public void loginTest_successfulLogInFromDashBoard_isWorking () {
+        dashboardPage.login(dotenv.get("JIRAUSERNAME"), dotenv.get("JIRAPASSWORD"));
         mainPage.navigateToProfile();
 
-        assertTrue(profilePage.verifySuccessfulLogin(username));
+        assertTrue(profilePage.verifySuccessfulLogin(dotenv.get("JIRAUSERNAME")));
     }
 
-    @ParameterizedTest
-    @CsvFileSource(resources = "/login/successful_login.csv", numLinesToSkip = 1)
-    public void loginTest_successfulLogInFromLoginPage_isWorking (String username, String password) {
+    @Test
+    public void loginTest_successfulLogInFromLoginPage_isWorking () {
         dashboardPage.navigateToLoginPage();
-        loginPage.login(username, password);
+        dashboardPage.login(dotenv.get("JIRAUSERNAME"), dotenv.get("JIRAPASSWORD"));
         mainPage.navigateToProfile();
 
-        assertTrue(profilePage.verifySuccessfulLogin(username));
+        assertTrue(profilePage.verifySuccessfulLogin(dotenv.get("JIRAUSERNAME")));
     }
 
     @ParameterizedTest

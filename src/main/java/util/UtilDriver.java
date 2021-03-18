@@ -1,8 +1,13 @@
 package util;
 
+import io.github.cdimascio.dotenv.Dotenv;
+import io.github.cdimascio.dotenv.DotenvBuilder;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,6 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 
@@ -18,22 +24,23 @@ public class UtilDriver {
         private String baseUrl;
 
         public UtilDriver() {
-            String Node = "https://selenium:validpassword.@seleniumhub.codecool.metastage.net/wd/hub/";
-            DesiredCapabilities cap = new DesiredCapabilities();
-            cap.setBrowserName("firefox");
-            cap.setPlatform(Platform.LINUX);
+            Dotenv dotenv = Dotenv.configure().load();
+            String Node = dotenv.get("GRIDURL");
+
+            DesiredCapabilities cap = chooseBrowser(Objects.requireNonNull(dotenv.get("BROWSER")));
+
             try {
                 driver = new RemoteWebDriver(new URL(Node), cap);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
 
-            this.baseUrl = "https://jira-auto.codecool.metastage.net/secure/Dashboard.jspa";
+            this.baseUrl = dotenv.get("BASEURL");
             driver.get(baseUrl);
             new WebDriverWait(driver, 40).until(
                     webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
             driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.MILLISECONDS);
+            driver.manage().timeouts().implicitlyWait(Long.parseLong(Objects.requireNonNull(dotenv.get("TIMEOUT"))), TimeUnit.MILLISECONDS);
         }
 
         public WebDriver getDriver() {
@@ -44,7 +51,26 @@ public class UtilDriver {
             return baseUrl;
         }
 
-        public void close(){
+        public DesiredCapabilities chooseBrowser(String browser) {
+            DesiredCapabilities cap = new DesiredCapabilities();
+            if (browser.equals("chrome")){
+                ChromeOptions options = new ChromeOptions();
+                options.addArguments("incognito");
+                cap.setCapability(ChromeOptions.CAPABILITY, options);
+
+//                cap = DesiredCapabilities.chrome();
+//                cap.setBrowserName("chrome");
+            }
+            else {
+                cap = DesiredCapabilities.firefox();
+                cap.setBrowserName("firefox");
+            }
+            cap.setPlatform(Platform.LINUX);
+            return cap;
+        }
+
+
+    public void close(){
             driver.quit();
         }
 

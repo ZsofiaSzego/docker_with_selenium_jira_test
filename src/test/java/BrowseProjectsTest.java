@@ -1,3 +1,5 @@
+import io.github.cdimascio.dotenv.Dotenv;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -14,22 +16,24 @@ public class BrowseProjectsTest {
     MainPage mainPage;
     ProjectsPage projectPage;
     ViewAllProjectsPage viewAllProjectsPage;
+    Dotenv dotenv;
 
 
     @BeforeEach
     public void setup() {
         utilDriver = new UtilDriver();
         dashboardPage = new DashboardPage(utilDriver.getDriver());
-        dashboardPage.login(System.getenv("jirausername"), System.getenv("jirapassword"));
+        dotenv = Dotenv.configure().load();
+        dashboardPage.login(dotenv.get("JIRAUSERNAME"), dotenv.get("JIRAPASSWORD"));
         mainPage = new MainPage(utilDriver.getDriver());
         projectPage = new ProjectsPage(utilDriver.getDriver());
         viewAllProjectsPage = new ViewAllProjectsPage(utilDriver.getDriver());
     }
 
-    //    @AfterEach
-//    public void teardown() {
-//        driver.close();
-//    }
+    @AfterEach
+    public void teardown() {
+        utilDriver.close();
+    }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/browseProjects/search_certain_projects_from_view_all_projects.csv", numLinesToSkip = 1)

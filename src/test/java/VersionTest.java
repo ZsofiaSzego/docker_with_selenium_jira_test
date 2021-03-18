@@ -1,3 +1,4 @@
+import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,22 +14,22 @@ public class VersionTest {
     MainPage mainPage;
     GlassDocumentationPage glassDocumentationPage;
     ReleasePage releasePage;
+    Dotenv dotenv;
 
     @BeforeEach
     public void setup() {
         utilDriver = new UtilDriver();
         dashboardPage = new DashboardPage(utilDriver.getDriver());
-        dashboardPage.login(System.getenv("jirausername"), System.getenv("jirapassword"));
+        dotenv = Dotenv.configure().load();
+        dashboardPage.login(dotenv.get("JIRAUSERNAME"), dotenv.get("JIRAPASSWORD"));
         mainPage = new MainPage(utilDriver.getDriver());
         mainPage.loadpage();
         glassDocumentationPage = new GlassDocumentationPage(utilDriver.getDriver());
         releasePage = new ReleasePage(utilDriver.getDriver());
     }
 
-//    @AfterEach
-//    public void teardown() {
-//        utilDriver.close();
-//    }
+    @AfterEach
+    public void teardown() { utilDriver.close(); }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/version/add_version_to_glass_documentation.csv", numLinesToSkip = 1)
