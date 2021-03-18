@@ -26,7 +26,9 @@ pipeline{
                         label "agent1"
                     }
                     steps{
-                        echo "Stage 2 - Parallel 1"
+                        echo JIRAUSERNAME
+                        sh "touch .env"
+                        sh "echo 'JIRAUSERNAME=${env.JIRAUSERNAME}\n  JIRAPASSWORD = ${env.JIRAPASSWORD} \n GRIDURL = ${env.GRIDURL} \n BASEURL = ${env.BASEURL} \n TIMEOUT = ${env.TIMEOUT}' > .env"
                         sh "mvn test -Dtest=LogoutTest"
                     }
                 }
@@ -50,6 +52,7 @@ pipeline{
         always {
             echo 'finished'
             cleanWs()
+            sh "rm .env "
         }
     }
 }
