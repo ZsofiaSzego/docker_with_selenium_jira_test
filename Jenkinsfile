@@ -1,13 +1,13 @@
 pipeline{
     agent any
+    environment{
+        PATH ="/opt/maven3/bin:$PATH"
+    }
     stages {
         stage('git'){
             steps {
                 git branch: 'main', credentialsId: 'git-user-pw', url: 'https://github.com/tothbenceimre/jiraTestWithJenkins.git'
             }
-            withMaven {
-                sh "mvn clean verify"
-            } // withMaven will discover the generated Maven artifacts, JUnit Surefire & FailSafe reports and FindBugs report
         }
         stage('clean'){
             steps {
@@ -16,11 +16,7 @@ pipeline{
         }
         stage('compile'){
             steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-                    '''
-                sh "mvn clean install"
+                sh "mvn clean package"
             }
         }
         stage('Second Stage'){
