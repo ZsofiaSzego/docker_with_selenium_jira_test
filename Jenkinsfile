@@ -1,11 +1,11 @@
 pipeline{
     agent any
     environment{
-        JIRAPASSWORD = "${params.JIRAPASSWORD}"
-        JIRAUSERNAME = "${params.JIRAUSERNAME}"
-        GRIDURL = "${params.GRIDURL}"
-        BASEURL = "${params.BASEURL}"
-        TIMEOUT = "${params.TIMEOUT}"
+        JIRAPASSWORD = "${env.JIRAPASSWORD}"
+        JIRAUSERNAME = "${env.JIRAUSERNAME}"
+        GRIDURL = "${env.GRIDURL}"
+        BASEURL = "${env.BASEURL}"
+        TIMEOUT = "${env.TIMEOUT}"
 
     }
     stages {
