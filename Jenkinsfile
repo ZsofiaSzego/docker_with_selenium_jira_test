@@ -3,7 +3,7 @@ pipeline{
     stages {
         stage('git'){
             steps {
-                git branch: 'main', credentialsId: 'git-credentials', url: 'https://github.com/tothbenceimre/jiraTestWithJenkins.git'            }
+                git branch: 'main', credentialsId: 'git-credentials', url: 'https://github.com/tothbenceimre/jiraTestWithJenkins.git'
             }
         }
         stage('clean'){
@@ -22,7 +22,7 @@ pipeline{
             parallel {
                 stage('Parallel 1'){
                     agent {
-                        label "slave1"
+                        label "agent1"
                     }
                     steps{
                         echo "Stage 2 - Parallel 1"
@@ -30,7 +30,7 @@ pipeline{
                 }
                 stage('Parallel 2'){
                     agent {
-                        label "slave2"
+                        label "agent2"
                     }
                     steps{
                         echo 'Stage 2 - Parallel 2'
