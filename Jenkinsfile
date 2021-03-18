@@ -13,6 +13,7 @@ pipeline{
         }
         stage('compile'){
             steps {
+                pwd()
                 sh "mvn clean install"
             }
         }
