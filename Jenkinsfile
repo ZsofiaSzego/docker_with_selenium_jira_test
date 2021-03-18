@@ -3,7 +3,7 @@ pipeline{
     stages {
         stage('git'){
             steps {
-                git branch: 'main', credentialsId: 'git-credentials', url: 'https://github.com/tothbenceimre/jiraTestWithJenkins.git'
+                git branch: 'main', credentialsId: 'git-user-pw', url: 'https://github.com/tothbenceimre/jiraTestWithJenkins.git'
             }
         }
         stage('clean'){
