@@ -6,6 +6,7 @@ allure-results
 .credentials.dat
 .ijwb
 .idea
+.env
 jira/.idea
 mockpiframe.log
 mockpiframe.log.lck
