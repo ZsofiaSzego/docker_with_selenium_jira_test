@@ -13,9 +13,7 @@ pipeline{
         }
         stage('compile'){
             steps {
-                pwd()
                 sh "mvn clean install"
-                
             }
         }
         stage('Second Stage'){
@@ -26,6 +24,7 @@ pipeline{
                     }
                     steps{
                         echo "Stage 2 - Parallel 1"
+                        sh "mvn test -Dtest=LogoutTest"
                     }
                 }
                 stage('Parallel 2'){
