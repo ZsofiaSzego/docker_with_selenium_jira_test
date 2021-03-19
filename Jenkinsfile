@@ -26,11 +26,11 @@ pipeline{
                         label "agent1"
                     }
                     steps{
-                        sh "echo "JIRAPASSWORD = ${JIRAPASSWORD}" >> src/main/resources/.env"
-                        sh "echo "JIRAUSERNAME = ${JIRAUSERNAME}" >> src/main/resources/.env"
-                        sh "echo "GRIDURL = ${GRIDURL}" >> src/main/resources/.env"
-                        sh "echo "BASEURL = ${BASEURL}" >> src/main/resources/.env"
-                        sh "echo "TIMEOUT = ${TIMEOUT}" >> src/main/resources/.env"
+                        sh "echo 'JIRAPASSWORD = ${JIRAPASSWORD}' >> src/main/resources/.env"
+                        sh "echo 'JIRAUSERNAME = ${JIRAUSERNAME}' >> src/main/resources/.env"
+                        sh "echo 'GRIDURL = ${GRIDURL}' >> src/main/resources/.env"
+                        sh "echo 'BASEURL = ${BASEURL}' >> src/main/resources/.env"
+                        sh "echo 'TIMEOUT = ${TIMEOUT}' >> src/main/resources/.env"
                        
                     }
                
