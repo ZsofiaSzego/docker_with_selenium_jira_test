@@ -41,6 +41,8 @@ pipeline{
                         label "agent1"
                     }
                     steps {
+                        sh "pwd"
+                        sh "ls"
                         sh "mvn test -Dtest=LogoutTest"
                     }
                 }
