@@ -32,7 +32,8 @@ pipeline{
                         sh '''echo \"GRIDURL = ${GRIDURL}\" >> .env'''
                         sh '''echo \"BASEURL = ${BASEURL}\" >> .env'''
                         sh '''echo \"TIMEOUT = ${TIMEOUT}\" >> .env'''
-                       
+                        sh "pwd"
+                        sh "ls"
                     }
                
                 }
@@ -41,8 +42,7 @@ pipeline{
                         label "agent1"
                     }
                     steps {
-                        sh "pwd"
-                        sh "ls"
+                       
                         sh "mvn test -Dtest=LogoutTest"
                     }
                 }
