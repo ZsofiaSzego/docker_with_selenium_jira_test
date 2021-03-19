@@ -26,7 +26,7 @@ pipeline{
                         label "agent1"
                     }
                     steps{
-                        sh "touch /.env"
+                        sh "touch .env"
                         sh '''echo \"JIRAPASSWORD = ${JIRAPASSWORD}\" >> src/main/resources/.env'''
                         sh '''echo \"JIRAUSERNAME = ${JIRAUSERNAME}\" >> src/main/resources/.env'''
                         sh '''echo \"GRIDURL = ${GRIDURL}\" >> src/main/resources/.env'''
