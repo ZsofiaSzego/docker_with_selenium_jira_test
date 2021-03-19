@@ -26,18 +26,24 @@ pipeline{
                         label "agent1"
                     }
                     steps{
-                        sh "touch src/main/resources/.env"
-                        sh '''echo \"JIRAPASSWORD = ${JIRAPASSWORD}\" >> src/main/resources/.env'''
-                        sh '''echo \"JIRAUSERNAME = ${JIRAUSERNAME}\" >> src/main/resources/.env'''
-                        sh '''echo \"GRIDURL = ${GRIDURL}\" >> src/main/resources/.env'''
-                        sh '''echo \"BASEURL = ${BASEURL}\" >> src/main/resources/.env'''
-                        sh '''echo \"TIMEOUT = ${TIMEOUT}\" >> src/main/resources/.env'''
-                       
+                        sh "touch .env"
+                        sh '''echo \"JIRAPASSWORD = ${JIRAPASSWORD}\" >> .env'''
+                        sh '''echo \"JIRAUSERNAME = ${JIRAUSERNAME}\" >> .env'''
+                        sh '''echo \"GRIDURL = ${GRIDURL}\" >> .env'''
+                        sh '''echo \"BASEURL = ${BASEURL}\" >> .env'''
+                        sh '''echo \"TIMEOUT = ${TIMEOUT}\" >> .env'''
+                        sh "pwd"
+                        sh "ls -a"
+                        sh "cat .env"
                     }
                
                 }
                 stage('Third stage') {
+                    agent {
+                        label "agent1"
+                    }
                     steps {
+                       
                         sh "mvn test -Dtest=LogoutTest"
                     }
                 }
