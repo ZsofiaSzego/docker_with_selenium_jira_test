@@ -33,7 +33,7 @@ pipeline{
                         sh '''echo \"BASEURL = ${BASEURL}\" >> .env'''
                         sh '''echo \"TIMEOUT = ${TIMEOUT}\" >> .env'''
                         sh "pwd"
-                        sh "ls"
+                        sh "ls -a"
                         sh "cat .env"
                     }
                
