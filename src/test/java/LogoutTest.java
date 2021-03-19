@@ -1,4 +1,5 @@
 import io.github.cdimascio.dotenv.Dotenv;
+import io.github.cdimascio.dotenv.DotenvBuilder;
 import io.github.cdimascio.dotenv.DotenvEntry;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -33,7 +34,11 @@ public class LogoutTest {
 
     @Test
     public void logoutTest_successfulLogOut_isWorking () {
-        Dotenv dotenv = Dotenv.configure().load();
+        Dotenv dotenv = Dotenv.configure()
+                .directory("/")
+                .ignoreIfMalformed()
+                .ignoreIfMissing()
+                .load();
         dashboardPage.login(dotenv.get("JIRAUSERNAME"), dotenv.get("JIRAPASSWORD"));
         mainPage.clickOnLogout();
 
