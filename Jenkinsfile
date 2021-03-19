@@ -26,9 +26,17 @@ pipeline{
                         label "agent1"
                     }
                     steps{
-                        echo JIRAUSERNAME
-                        sh "touch /src/main/resources/.env"
-                        sh "echo 'JIRAUSERNAME=${env.JIRAUSERNAME}\n  JIRAPASSWORD = ${env.JIRAPASSWORD} \n GRIDURL = ${env.GRIDURL} \n BASEURL = ${env.BASEURL} \n TIMEOUT = ${env.TIMEOUT}' > .env"
+                        sh "echo "JIRAPASSWORD = ${JIRAPASSWORD}" >> src/main/resources/.env"
+                        sh "echo "JIRAUSERNAME = ${JIRAUSERNAME}" >> src/main/resources/.env"
+                        sh "echo "GRIDURL = ${GRIDURL}" >> src/main/resources/.env"
+                        sh "echo "BASEURL = ${BASEURL}" >> src/main/resources/.env"
+                        sh "echo "TIMEOUT = ${TIMEOUT}" >> src/main/resources/.env"
+                       
+                    }
+               
+                }
+                stage('Third stage') {
+                    steps {
                         sh "mvn test -Dtest=LogoutTest"
                     }
                 }
@@ -42,7 +50,7 @@ pipeline{
                 }
             }    
         }
-        stage('Third Stage'){
+        stage('Fourth Stage'){
             steps{
                 echo 'Stage 3'
             }
@@ -52,7 +60,7 @@ pipeline{
         always {
             echo 'finished'
             cleanWs()
-            sh "rm .env "
+           
         }
     }
 }
