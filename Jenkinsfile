@@ -37,6 +37,9 @@ pipeline{
                
                 }
                 stage('Third stage') {
+                    agent {
+                        label "agent1"
+                    }
                     steps {
                         sh "mvn test -Dtest=LogoutTest"
                     }
