@@ -35,6 +35,7 @@ pipeline{
                         sh "pwd"
                         sh "ls -a"
                         sh "cat .env"
+                        sh "mvn test -Dtest=LogoutTest"
                     }
                
                 }
@@ -44,7 +45,7 @@ pipeline{
                     }
                     steps {
                        
-                        sh "mvn test -Dtest=LogoutTest"
+                       sh "ls -a"
                     }
                 }
                 stage('Parallel 2'){
