@@ -36,8 +36,6 @@ public class LogoutTest {
     public void logoutTest_successfulLogOut_isWorking () {
         Dotenv dotenv = Dotenv.configure()
                 .directory("/")
-                .ignoreIfMalformed()
-                .ignoreIfMissing()
                 .load();
         dashboardPage.login(dotenv.get("JIRAUSERNAME"), dotenv.get("JIRAPASSWORD"));
         mainPage.clickOnLogout();
