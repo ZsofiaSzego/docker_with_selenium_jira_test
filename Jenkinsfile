@@ -34,6 +34,7 @@ pipeline{
                         sh '''echo \"TIMEOUT = ${TIMEOUT}\" >> .env'''
                         sh "pwd"
                         sh "ls"
+                        sh "cat .env"
                     }
                
                 }
